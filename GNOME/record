@@ -1,0 +1,53 @@
+#!/bin/bash
+## adapted from trossens script
+
+task_name=$1
+task_count=$2
+
+RECORD="$HOME/interbotix_ws/src/aloha/scripts/record_episodes.py"
+
+function setupenv()  {
+ source /opt/ros/humble/setup.bash # configure ROS system install environment
+ source ~/interbotix_ws/install/setup.bash # configure ROS workspace environment
+}
+
+function startup() {
+  gnome-terminal --tab source /opt/ros/humble/setup.bash; source ~/interbotix_ws/install/setup.bash; ros2 launch aloha aloha_bringup.launch.py robot:=aloha_mobile
+}
+
+function helpfunction() {
+  echo "Arguments: [taskname] [count]"
+}
+
+
+function cleanup_safeshutdown() {
+ export INTERBOTIX_ALOHA_IS_MOBILE=true
+ python3 sleep.py -r
+}
+
+
+
+while getopts "h" opt
+do 
+  case "$opt" in 
+       h ) helpfunction ;;
+       ? ) ;;
+  esac
+done
+
+echo "starting up aloha in a separate tab"
+startup
+wait 500 
+echo "Starting recording for task $1"
+
+for (( i = 0; i < $2; i++)); do
+  python3 "$RECORD" --task_name "$task_name" --robot "aloha_mobile" --episode_idx "$i" 
+done
+
+while true; do
+ echo "Ctrl+C when finished"
+done
+
+ trap cleanup_safeshutdown SIGINT
+ trap cleanup_safeshutdown EXIT
+ trap cleanup_safeshutdown INT

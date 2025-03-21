@@ -1,0 +1,25 @@
+#!/bin/bash
+
+function setupenv()  {
+ source /opt/ros/humble/setup.bash # configure ROS system install environment
+ source ~/interbotix_ws/install/setup.bash # configure ROS workspace environment
+}
+
+function startup() {
+  gnome-terminal --tab source /opt/ros/humble/setup.bash; source ~/interbotix_ws/install/setup.bash; ros2 launch aloha aloha_bringup.launch.py robot:=aloha_mobile
+}
+
+function cleanup_safeshutdown() {
+ export INTERBOTIX_ALOHA_IS_MOBILE=true
+ python3 sleep.py -r
+}
+
+startup
+cd ~/interbotix_ws/src/aloha/scripts/
+while true; do
+ clear
+ echo "Ctrl+C when you are finished!"
+done
+
+trap cleanup_safeshutdown SIGINT
+
