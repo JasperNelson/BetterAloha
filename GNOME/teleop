@@ -6,25 +6,25 @@ function setupenv()  {
 }
 
 function startup() {
- coproc STARTUP {
+ coproc STARTUP { # Launches this process in the same tty in parallel with current
   source /opt/ros/humble/setup.bash # configure ROS system install environment
   source ~/interbotix_ws/install/setup.bash # configure ROS workspace environment
+   eval "ros2 launch aloha aloha_bringup.launch.py robot:=aloha_mobile >log.txt 2>&1"
   while true; do 
-   ros2 launch aloha aloha_bringup.launch.py robot:=aloha_mobile
   done
 }
 }
 
 function cleanup_safeshutdown() {
  export INTERBOTIX_ALOHA_IS_MOBILE=true
- python3 sleep.py -r
+ eval "python3 sleep.py -ri"
 }
 
 
 
 startup
 cd ~/interbotix_ws/src/aloha/scripts/
-python3 teleop.py -r aloha_mobile
+eval "python3 teleop.py -r aloha_mobile"
 trap cleanup_safeshutdown SIGINT
 
 
