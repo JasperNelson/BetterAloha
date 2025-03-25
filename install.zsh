@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Define source and target directories
 SRC_DIR="./GNOME"
@@ -19,9 +19,9 @@ done
 # Append aliases for scripts to ~/.bashrc if not already present
 for file in "${FILES[@]}"; do
     ALIAS_CMD="alias $file='source $file'"
-    if ! grep -qxF "$ALIAS_CMD" ~/.bashrc; then
-        echo "$ALIAS_CMD" >> ~/.bashrc
-        echo "Added alias for $file to ~/.bashrc"
+    if ! grep -qxF "$ALIAS_CMD" ~/.zshrc; then
+        echo "$ALIAS_CMD" >> ~/.zshrc
+        echo "Added alias for $file to ~/.zshrc"
     else
         echo "Alias for $file already exists in ~/.bashrc"
     fi

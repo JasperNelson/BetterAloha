@@ -10,7 +10,9 @@ function startup() {
   source /opt/ros/humble/setup.bash # configure ROS system install environment
   source ~/interbotix_ws/install/setup.bash # configure ROS workspace environment
    eval "ros2 launch aloha aloha_bringup.launch.py robot:=aloha_mobile >log.txt 2>&1"
-  while true; do 
+  while true; do
+	clear
+        echo "Type Ctrl+C when done"	
   done
 }
 }
