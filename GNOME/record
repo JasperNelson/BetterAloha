@@ -35,7 +35,7 @@ done
 
 echo "starting up aloha in a separate tab"
 startup
-wait 500 
+sleep 20 
 echo "Starting recording for task $1"
 
 for (( i = 0; i < $2; i++)); do

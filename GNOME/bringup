@@ -12,7 +12,7 @@ function startup() {
 
 function cleanup_safeshutdown() {
  export INTERBOTIX_ALOHA_IS_MOBILE=true
- python3 sleep.py -r
+ eval "python3 sleep.py -r"
 }
 
 startup
