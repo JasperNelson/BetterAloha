@@ -4,6 +4,7 @@ This repository is a series of scripts designed to fix the tedious method of set
 # Requirements:
  - **Aloha V2** 
  - Either Zsh or Bash
+ - Gnome Terminal
 : NOTE: the aloha repository has not been updated in a long time by the trossen team it is very likely that it may have been *abandoned* thus these scripts are being made. 
 
 # Install: 
