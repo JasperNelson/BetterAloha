@@ -1,1 +1,0 @@
-/usr/bin/teleop: line 12: ros2: command not found
